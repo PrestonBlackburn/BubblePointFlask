@@ -1,4 +1,5 @@
 import requests
+import json
 
 url = 'http://127.0.0.1:5000/'
 headers = {'Content-Type':'Application/json'}
@@ -8,3 +9,4 @@ r = requests.post(url, headers = headers, data = data)
 
 print(r)
 print(r.text)
+print(json.loads(r.text))

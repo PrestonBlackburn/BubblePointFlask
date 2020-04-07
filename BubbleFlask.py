@@ -5,20 +5,19 @@ np.seterr(divide='ignore', invalid='ignore')
 from scipy.optimize import fsolve
 
 
-#JSONdata = '{"Temperature":74,"Hydrogen Sulfide":0,"Nitrogen":0.019264,"Carbon Dioxide":0.176679,"Methane":2.216492,"Ethane":2.131195,"Propane":2.672874,"Isobutane":1.531791,"n-Butane":3.01741,"n-Pentane":5.660723,"n-Hexane":8.777826,"n-Heptane":73.795745,"n-Octane":0,"n-Nonane":0,"n-Decane":0,"Benzene":0,"Toluene":0,"Xylenes":0,"Cyclohexane":0}'
-JSONdata = '{"Benzene": 0,"Carbon Dioxide": 0.176679,"Cyclohexane": 0,"Ethane": 2.131195,"Hydrogen Sulfide": 0,"Isobutane": 1.531791,"Methane": 2.216492,"Nitrogen": 0.019264,"Propane": 2.672874,"Temperature": 74,"Toluene": 0,"Xylenes": 0,"n-Butane": 3.01741,"n-Decane": 0,"n-Heptane": 73.795745,"n-Hexane": 8.777826,"n-Nonane": 0,"n-Octane": 0,"n-Pentane": 5.660723}'
 
-
-def main(JSONdata):
+def BubblePoint(JSONdata):
     (dfIn,Tfeed) = dataFormat(JSONdata)
     bubble = Bubble(dfIn,Tfeed)
     bubblePoint = bubble[0]*14.5038-14.73
-    print(dfIn)
-    print(Tfeed)
-    print(bubblePoint)
+    d = {'Bubble Point [psig]':str(round(bubblePoint,4))}
+
+    return json.dumps(d)
+ 
 
 def dataFormat(JSONdata):
-    data = json.loads(JSONdata)
+    #data = json.loads(JSONdata)
+    data = JSONdata
 
     T_feed = data['Temperature']
     Tfeed = (T_feed-32)*5/9+273.15
@@ -207,4 +206,7 @@ def fugacity_function(fugacityA,fugacityb,Z,A,B):
     phiL = np.exp(V1*V2-V3-V4*np.log(V5/V6)/V7)
     return phiL
 
-main(JSONdata)
+
+#JSONdata = '{"Temperature":74,"Hydrogen Sulfide":0,"Nitrogen":0.019264,"Carbon Dioxide":0.176679,"Methane":2.216492,"Ethane":2.131195,"Propane":2.672874,"Isobutane":1.531791,"n-Butane":3.01741,"n-Pentane":5.660723,"n-Hexane":8.777826,"n-Heptane":73.795745,"n-Octane":0,"n-Nonane":0,"n-Decane":0,"Benzene":0,"Toluene":0,"Xylenes":0,"Cyclohexane":0}'
+#res = BubblePoint(JSONdata)
+#print(res)
