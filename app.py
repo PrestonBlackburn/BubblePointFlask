@@ -2,8 +2,6 @@ from flask import Flask, request, jsonify
 from BubbleFlask import BubblePoint
 
 app = Flask(__name__)
-app.config["DEBUG"] = True
-
 
 @app.route('/')
 def home():
