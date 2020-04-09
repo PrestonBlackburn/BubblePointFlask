@@ -17,5 +17,5 @@ def API():
     bubblepoint = BubblePoint(data)
     return bubblepoint
     
-
-app.run()
+if __name__ == "__main__":
+    app.run()
